@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'ads',
     'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +125,29 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# media
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Настроить ckeditor
+CKEDITOR_UPLOAD_PATH = 'upload/'
+
+CKEDITOR_CONFIGS = {
+    'default': {},
+    'comment_ckeditor': {
+        'toolbar': 'custom',
+        'toolbar_custom': [
+            ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'],
+            ["TextColor", "BGColor", 'RemoveFormat'],
+            ['NumberedList', 'BulletedList'],
+            ['Link', 'Unlink'],
+            ["Smiley", "SpecialChar", 'Blockquote'],
+        ],
+        'width': 'auto',
+        'height': '180',
+        'tabSpaces': 4,
+        'removePlugins': 'elementspath',
+        'resize_enabled': False,
+    }
+}
