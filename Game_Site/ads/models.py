@@ -18,10 +18,15 @@ class Category(models.Model):
 
 
 class Post(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=64, unique=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    content = RichTextField(blank=True, null=True)
+    post_author = models.ForeignKey(User, on_delete=models.CASCADE)
+    post_title = models.CharField(max_length=64, unique=True)
+    post_category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    post_content = RichTextField(blank=True, null=True)
 
     def __str__(self):
-        return f'{self.title}: {self.category}'
+        return f'{self.post_title}: {self.post_category}'
+
+
+class Response(models.Model):
+    response_author = models.ForeignKey(User, on_delete=models.CASCADE)
+

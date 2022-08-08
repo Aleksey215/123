@@ -5,11 +5,11 @@ from ckeditor_uploader.fields import RichTextUploadingField
 
 
 class PostForm(forms.ModelForm):
-    author = forms.CharField(widget=forms.TextInput(), required=True, max_length=32)
-    title = forms.CharField(widget=forms.TextInput(), required=True, max_length=64)
-    category = forms.CharField(widget=forms.TextInput(), required=True, max_length=32)
-    content = RichTextUploadingField
+    post_author = forms.CharField(widget=forms.TextInput(), required=True, max_length=32)
+    post_title = forms.CharField(widget=forms.TextInput(), required=True, max_length=64)
+    post_category = forms.CharField(widget=forms.TextInput(), required=True, max_length=32)
+    post_content = RichTextUploadingField
 
     class Meta:
         model = Post
-        fields = ('author', 'title', 'category', 'content')
+        fields = ('post_author', 'post_title', 'post_category', 'post_content')
