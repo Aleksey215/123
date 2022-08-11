@@ -1,10 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'index.html' %}
 
-</body>
-</html>
+{% load i18n %}
+
+{% block title %}
+Post add
+{% endblock title %}
+
+
+{% block content %}
+<h3>Публикация</h3>
+<hr>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ myform.media }}
+    {{ myform.as_p }}
+    <br>
+
+    <p align="left">
+
+    <input type="submit" value="Добавить публикацию">
+    </p>
+</form>
+<br>
+{% endblock content %}
