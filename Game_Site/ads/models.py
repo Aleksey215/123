@@ -26,6 +26,9 @@ class Post(models.Model):
     def __str__(self):
         return f'{self.post_title}: {self.post_category}'
 
+    def get_absolut_url(self):
+        return f'/ads/{self.id}'
+
 
 class Response(models.Model):
     response_author = models.ForeignKey(User, on_delete=models.CASCADE)

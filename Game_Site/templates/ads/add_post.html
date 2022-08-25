@@ -10,17 +10,17 @@ Post add
 {% block content %}
 <h3>Публикация</h3>
 <hr>
+<div class="form-group">
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <br>
+        <p align="center">
+            <input type="submit" value="Добавить публикацию">
+        </p>
+    </form>
+</div>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ myform.media }}
-    {{ myform.as_p }}
-    <br>
-
-    <p align="left">
-
-    <input type="submit" value="Добавить публикацию">
-    </p>
-</form>
 <br>
 {% endblock content %}
