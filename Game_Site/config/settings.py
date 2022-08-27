@@ -122,49 +122,23 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
-
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
-    BASE_DIR/"static"
+    os.path.join(BASE_DIR, 'ads/static'),
 ]
-
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'ServiceCRM3/static'), ]
-
-# STATIC_URL = 'static/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'ServiceCRM3/static'),]
-
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
-
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Настроить ckeditor
-CKEDITOR_UPLOAD_PATH = 'upload/'
+CKEDITOR_UPLOAD_PATH = "uploads/"
 
-# CKEDITOR_CONFIGS = {
-#     'default': {},
-#     'comment_ckeditor': {
-#         'toolbar': 'custom',
-#         'toolbar_custom': [
-#             ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'],
-#             ["TextColor", "BGColor", 'RemoveFormat'],
-#             ['NumberedList', 'BulletedList'],
-#             ['Link', 'Unlink'],
-#             ["Smiley", "SpecialChar", 'Blockquote'],
-#         ],
-#         'width': 'auto',
-#         'height': '180',
-#         'tabSpaces': 4,
-#         'removePlugins': 'elementspath',
-#         'resize_enabled': False,
-#     }
-# }
+# Default primary key field type
+# https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CKEDITOR_CONFIGS = {
     'default': {
