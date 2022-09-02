@@ -4,4 +4,4 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class IndexView(LoginRequiredMixin, TemplateView):
-    template_name = 'account/index.html'
+    template_name = 'profile/profile.html'
