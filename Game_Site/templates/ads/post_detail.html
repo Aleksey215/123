@@ -5,34 +5,54 @@ Post Detail
 {% endblock %}
 
 {% block content %}
-<table align="center">
+<table align="left">
     <tr>
         <td>
-            Title
+            <h4 align="left">Заголовок</h4>
         </td>
         <td>
-            Content
-        </td>
-        <td>
-            Author
-        </td>
-        <td>
-            Category
+            <p align="left">
+                <font size="5"> {{ post.title }} </font>
+            </p>
         </td>
     </tr>
     <tr>
         <td>
-            {{ post.post_title }}
+            <h4 align="left">Автор</h4>
         </td>
         <td>
-            {{ post.post_content|safe }}
+            <p align="left">
+                <font size="5"> {{ post.author }} </font>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h4 align="left">Категория</h4>
         </td>
         <td>
-            {{ post.post_author }}
+            <p align="left">
+                <font size="5"> {{ post.get_category_display }} </font>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h4 align="left">Содержание &nbsp</h4>
         </td>
         <td>
-            {{ post.post_category }}
+            <p align="left">
+                <font size="5"> {{ post.content|safe }} </font>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p style="text-align: left">
+                <button><a href="{% url 'post_update' post.id %}">Редактировать</a></button>
+            </p>
         </td>
     </tr>
 </table>
+
 {% endblock %}

@@ -37,10 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'ads',
     'ckeditor',
     'ckeditor_uploader',
+    'ads',
 ]
 
 MIDDLEWARE = [
@@ -134,16 +133,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Настроить ckeditor
 CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'basic',
+        'height': 400,
+        'width': 1300,
+    },
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'full',
-        'height': 300,
-        'width': 'auto',
-    },
-}

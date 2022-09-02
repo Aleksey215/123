@@ -1,9 +1,10 @@
 from django.shortcuts import render
-from django.views.generic import ListView, CreateView, UpdateView, DetailView
-from .models import User, Post
-from .forms import PostForm
 from django.http import HttpResponse
 from django.core.cache import cache
+from django.views.generic import ListView, CreateView, UpdateView, DetailView
+
+from .models import User, Post
+from .forms import PostForm
 
 
 class AddPostView(CreateView):
