@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-@0s&m%9kq#82jxg@@9hb5v3$uw_)f3s76ms@yso#&3dq7c3!+q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     'ads',
+    'account',
+    'sign',
 ]
 
 MIDDLEWARE = [
@@ -145,3 +147,6 @@ CKEDITOR_CONFIGS = {
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = 'sign/login/'  # страница аутентификации
+LOGIN_REDIRECT_URL = '/'  # страница для перенаправления после успешного входа
