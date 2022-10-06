@@ -17,7 +17,7 @@ class Post(models.Model):
         ('potion', 'Зельевары'),
         ('spellmaster', 'Мастера заклинаний'),
     )
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True)
     title = models.CharField(max_length=64, unique=True)
     category = models.CharField(max_length=16, choices=TYPE, default='tank')
     content = RichTextUploadingField(blank=True, null=True)

@@ -16,6 +16,10 @@ class AddPostView(CreateView):
     template_name = 'ads/add_post.html'
     form_class = PostForm
 
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super(AddPostView, self).form_valid(form)
+
 
 class PostsView(ListView):
     model = Post

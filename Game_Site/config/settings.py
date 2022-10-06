@@ -154,8 +154,8 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'basic',
-        'height': 400,
-        'width': 1300,
+        'height': 300,
+        'width': 900,
     },
 }
 
@@ -174,8 +174,10 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_FORMS = {'signup': 'sign.models.BasicSignupForm'}
+ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
 
 # Настройки почтового ящика для рассылки писем
 EMAIL_HOST = os.getenv("HOST")
@@ -183,3 +185,6 @@ EMAIL_HOST_USER = os.getenv("EMAIL_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
+
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_EMAIL")
+# DEFAULT_FROM_EMAIL = "kalosha21541@yandex.ru"
