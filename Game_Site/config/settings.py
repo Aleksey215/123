@@ -12,8 +12,10 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 import os
 from pathlib import Path
 
+# для подключения переменных окружения
 from dotenv import load_dotenv
 
+# настройка пути для переменных окружения
 load_dotenv()
 env_path = Path('Game_Site')/'.env'
 load_dotenv(dotenv_path=env_path)
@@ -25,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@0s&m%9kq#82jxg@@9hb5v3$uw_)f3s76ms@yso#&3dq7c3!+q'
+SECRET_KEY = os.getenv("KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -43,13 +45,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
 
+    # для работы профилем, авторизацией и т.д
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    # приложения для расширения текстового поля
     'ckeditor',
     'ckeditor_uploader',
 
+    # приложения проекта
     'ads',
     'profile',
     'sign',
@@ -78,7 +83,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        # Задаем путь к папке с шаблонами, где джанго будет их искать
+        # Задаем путь к папке с шаблонами
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -138,6 +143,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
+# настройка папки со статическими файлами
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = [
@@ -145,11 +151,11 @@ STATICFILES_DIRS = [
 ]
 
 
-# media
+# настройка media (для загрузки через ckeditorUploader)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Настроить ckeditor
+# Настройки ckeditor
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
     'default': {
@@ -164,6 +170,7 @@ CKEDITOR_CONFIGS = {
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# путь для входа
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'  # страница для перенаправления после успешного входа
 
@@ -185,6 +192,4 @@ EMAIL_HOST_USER = os.getenv("EMAIL_USER")
 EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
-
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_EMAIL")
-# DEFAULT_FROM_EMAIL = "kalosha21541@yandex.ru"

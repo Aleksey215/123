@@ -1,4 +1,5 @@
 from django.urls import path
+# подключение представлений для входа и выхода
 from django.contrib.auth.views import LoginView, LogoutView
 
 from .views import BaseRegisterView
@@ -14,6 +15,6 @@ urlpatterns = [
          # Django перенаправит пользователя на страницу, указанную в параметре template_name класса LogoutView.
          name='logout'),  # устанавливаем имена для этих URL в целях удобства обращения к ним из шаблонов
     path('signup/',
-         BaseRegisterView.as_view(template_name='sign/signup.html'),
+         BaseRegisterView.as_view(template_name='sign/signup.html'),  # подключение регистрации пользователя
          name='signup'),
 ]

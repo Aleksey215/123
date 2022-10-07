@@ -5,10 +5,15 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+    # админка
     path('admin/', admin.site.urls),
+    # приложение для объявлений
     path('', include('ads.urls')),
+    # регистрация
     path('sign/', include('sign.urls')),
+    # профиль/аккаунт
     path('accounts/', include('allauth.urls')),
     path('profile/', include('profile.urls')),
+    # подключение расширенного редактора текста с добавлением медиа файлов
     path('ckeditor', include('ckeditor_uploader.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)  # задаем путь

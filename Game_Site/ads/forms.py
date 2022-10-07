@@ -2,6 +2,7 @@ from django import forms
 from .models import *
 
 
+# создание формы для добавления публикации
 class PostForm(forms.ModelForm):
 
     class Meta:
@@ -9,6 +10,7 @@ class PostForm(forms.ModelForm):
         fields = ('author', 'title', 'category', 'content')
 
         widgets = {
+            # поле "автор" заполнится автоматически
             'author': forms.HiddenInput(),
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'category': forms.Select(attrs={'class': 'form-control'}),

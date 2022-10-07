@@ -1,10 +1,10 @@
-from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.views.generic.edit import CreateView
 
 from .models import BaseRegisterForm
 
 
+# дженерик создания пользователя
 class BaseRegisterView(CreateView):
     model = User
     form_class = BaseRegisterForm

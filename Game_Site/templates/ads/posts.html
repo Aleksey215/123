@@ -1,3 +1,4 @@
+<!-- страница на которой отображены все объявления -->
 {% extends 'index.html' %}
 
 {% block title %}
@@ -6,13 +7,13 @@ Posts
 
 {% block content %}
 
-<table align="left">
+<table align="center">
     {% for post in posts %}
     <tr>
         <td>
-            <h5 align="center">
+            <h4 align="center">
                 <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
-            </h5>
+            </h4>
         </td>
     </tr>
     <tr>
@@ -22,10 +23,17 @@ Posts
     </tr>
     <tr>
         <td>
-            <h6 align="left">
+            <h5 align="left">
                 Категория - "{{ post.get_category_display }}"
+            </h5>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h6 align="left">
+                Опубликовал - {{ post.author }}
             </h6>
-            <hr>
+            <br>
         </td>
     </tr>
     {% endfor %}
