@@ -49,9 +49,11 @@ Post Detail
     </tr>
     <tr>
         <td>
+            {% if author_user %}
             <p style="text-align: left">
                 <button><a href="{% url 'post_update' post.id %}">Редактировать</a></button>
             </p>
+            {% endif %}
         </td>
     </tr>
 </table>

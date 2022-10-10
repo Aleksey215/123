@@ -1,18 +1,19 @@
-<!-- страница на которой отображены все объявления -->
 {% extends 'index.html' %}
 
 {% block title %}
-Posts
-{% endblock %}
+Responses
+{% endblock title %}
+
 
 {% block content %}
+Hello from responses!
 
 <table align="center">
-    {% for post in posts %}
+    {% for response in responses %}
     <tr>
         <td>
             <h4 align="center">
-                <a href="{% url 'post_detail' post.id %}">{{ post.title }}</a>
+                {{ response.post.title }}
             </h4>
         </td>
     </tr>
@@ -39,4 +40,4 @@ Posts
     {% endfor %}
 </table>
 
-{% endblock %}
+{% endblock content %}

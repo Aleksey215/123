@@ -4,7 +4,7 @@ from django.core.cache import cache
 from django.views.generic import ListView, CreateView, UpdateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .models import User, Post
+from .models import Post, Response
 from .forms import PostForm
 
 
@@ -14,7 +14,7 @@ def home(request):
 
 
 # добавление объявления
-class AddPostView(CreateView):
+class AddPostView(LoginRequiredMixin, CreateView):
     template_name = 'ads/add_post.html'
     form_class = PostForm
 
@@ -33,6 +33,7 @@ class PostsView(ListView):
 
 # редактирование объявления
 class PostUpdateView(UpdateView):
+    model = Post
     template_name = 'ads/add_post.html'
     form_class = PostForm
 
@@ -44,9 +45,10 @@ class PostUpdateView(UpdateView):
 
 # получение подробной информации об объявлении
 class PostDetailView(DetailView):
+    model = Post
     template_name = 'ads/post_detail.html'
     form_class = PostForm
-    queryset = Post.objects.all()
+    # queryset = Post.objects.all()
 
     # переопределение метода получения объекта
     def get_object(self, *args, **kwargs):
@@ -57,3 +59,20 @@ class PostDetailView(DetailView):
             obj = super().get_object(*args, **kwargs)
             cache.set(f'post-{self.kwargs["pk"]}', obj)
         return obj
+
+    # для доступа к редактированию только собственных постов
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        obj = cache.get(f'post-{self.kwargs["pk"]}', None)
+        author = obj.author
+        user = self.request.user
+        context['author_user'] = True if user == author else False
+        return context
+
+
+class ResponsesView(ListView):
+    model = Response
+    template_name = 'ads/responses.html'
+    context_object_name = 'responses'
+
+

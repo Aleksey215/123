@@ -31,7 +31,7 @@ class Post(models.Model):
         return f'{self.title}: {self.category}'
 
     def get_absolute_url(self):
-        return f'/ads/{self.id}'
+        return f'/posts/'
 
 
 # модель отклика на объявление
