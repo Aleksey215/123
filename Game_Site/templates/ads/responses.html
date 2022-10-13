@@ -19,20 +19,36 @@ Hello from responses!
     </tr>
     <tr>
         <td>
-            {{ post.content|safe }}
+            {{ response.post.content|safe }}
         </td>
     </tr>
     <tr>
         <td>
             <h6 align="left">
-                Категория - "{{ post.get_category_display }}"
+                Объявление опубликовал - "{{ response.post.author }}"
             </h6>
         </td>
     </tr>
     <tr>
         <td>
             <h6 align="left">
-                Опубликовал - {{ post.author }}
+                Автор отклика - {{ response.author }}
+            </h6>
+            <br>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h6 align="left">
+                Содержание отклика - {{ response.text }}
+            </h6>
+            <br>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h6 align="left">
+                Время отклика - {{ response.time_of_creation }}
             </h6>
             <br>
         </td>

@@ -7,5 +7,5 @@ urlpatterns = [
     path('add_post/', AddPostView.as_view(), name='add_post'),
     path('ads/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
     path('add_post/<int:pk>', PostUpdateView.as_view(), name='post_update'),
-    path('responses/', ResponsesView.as_view(), name='responses')
+    path('responses/', ResponsesView.as_view(), name='responses'),
 ]

@@ -6,6 +6,17 @@ Post Detail
 {% endblock %}
 
 {% block content %}
+ <style>
+   table {
+    width: 100%; /* Ширина таблицы */
+    background: white; /* Цвет фона таблицы */
+    border: 1px;
+   }
+   td, th {
+    padding: 5px; /* Поля вокруг текста */
+    border: 1px;
+   }
+  </style>
 <table align="left">
     <tr>
         <td>
@@ -13,7 +24,7 @@ Post Detail
         </td>
         <td>
             <p align="left">
-                <font size="5"> {{ post.title }} </font>
+                <font size="5" color="aaaaaa"> {{ post.title }} </font>
             </p>
         </td>
     </tr>
@@ -41,21 +52,36 @@ Post Detail
         <td>
             <h4 align="left">Содержание &nbsp</h4>
         </td>
-        <td>
+        <td align="left">
             <p align="left">
                 <font size="5"> {{ post.content|safe }} </font>
             </p>
         </td>
     </tr>
-    <tr>
-        <td>
-            {% if author_user %}
-            <p style="text-align: left">
-                <button><a href="{% url 'post_update' post.id %}">Редактировать</a></button>
-            </p>
-            {% endif %}
-        </td>
-    </tr>
 </table>
+
+{% if author_user %}
+<p style="text-align: left">
+    <button>
+        <a href="{% url 'post_update' post.id %}">Редактировать</a>
+    </button>
+</p>
+{% else %}
+<p style="text-align: left">
+    Если данное объявление вас заинтересовало,
+    вы можете отправить отклик на него.<br>
+    Просто введите сообщение и автор объявления получит его.
+</p>
+<p style="text-align: left">
+<form action="" method="post">
+    {% csrf_token %}
+    {{ response_form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+</p>
+{% endif %}
+
+
+
 
 {% endblock %}

@@ -1,11 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.cache import cache
 from django.views.generic import ListView, CreateView, UpdateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Post, Response
-from .forms import PostForm
+from .forms import PostForm, ResponseForm
 
 
 # отображение домашней страницы
@@ -67,7 +67,19 @@ class PostDetailView(DetailView):
         author = obj.author
         user = self.request.user
         context['author_user'] = True if user == author else False
+        context['response_form'] = ResponseForm()
         return context
+
+    def post(self, request, pk):
+        post = self.get_object(Post, pk=pk)
+        form = ResponseForm(request.POST)
+
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.post = post
+            obj.author = self.request.user
+            obj.save()
+            return redirect('post_detail', post.pk)
 
 
 class ResponsesView(ListView):
@@ -75,4 +87,5 @@ class ResponsesView(ListView):
     template_name = 'ads/responses.html'
     context_object_name = 'responses'
 
-
+    def get_context_data(self, *, object_list=None, **kwargs):
+        pass

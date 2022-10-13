@@ -39,6 +39,14 @@ class Response(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True)
     text = models.TextField()
     time_of_creation = models.DateTimeField(auto_now_add=True)
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    post = models.ForeignKey(
+        Post,
+        on_delete=models.CASCADE,
+        default=None,
+        blank=True,
+        related_name='response'
+    )
     status = models.BooleanField(default=False)
 
+    def get_absolute_url(self):
+        return f'/posts/'

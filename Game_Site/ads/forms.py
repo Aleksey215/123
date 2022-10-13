@@ -16,3 +16,16 @@ class PostForm(forms.ModelForm):
             'category': forms.Select(attrs={'class': 'form-control'}),
             'content': forms.Textarea(attrs={'class': 'form-control'}),
         }
+
+
+class ResponseForm(forms.ModelForm):
+
+    class Meta:
+        model = Response
+        fields = ('author', 'text', 'post')
+
+        widgets = {
+            'author': forms.HiddenInput(),
+            'text': forms.TextInput(attrs={'class': 'form-control'}),
+            'post': forms.HiddenInput(),
+        }
