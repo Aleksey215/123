@@ -23,6 +23,9 @@ class ResponseForm(forms.ModelForm):
     class Meta:
         model = Response
         fields = ('author', 'text', 'post')
+        labels = {
+            "text": "Response content:"
+        }
 
         widgets = {
             'author': forms.HiddenInput(),

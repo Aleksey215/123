@@ -1,0 +1,22 @@
+<!--Данный файл отображает страницу удаления постов
+Вся информация о посте берется из БД в файле views.py из представления для удаления-->
+
+<!--Наследование от главного файла-->
+{% extends 'index.html' %}
+
+{% load i18n %}
+
+<!--Написание заголовка-->
+{% block title %}
+Response delete
+{% endblock title %}
+
+<!--Описание содержания
+в таблице выводим всю ин-ию и прописали кнопку подтверждения-->
+{% block content %}
+Hello from deleteView
+<form method="POST">
+    {% csrf_token %}
+    <input type="submit" value="Подтвердить">
+</form>
+{% endblock content %}

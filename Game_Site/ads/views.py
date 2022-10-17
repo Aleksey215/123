@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.cache import cache
-from django.views.generic import ListView, CreateView, UpdateView, DetailView
+from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django_filters.views import FilterView
 
 from .models import Post, Response
 from .forms import PostForm, ResponseForm
@@ -42,7 +43,8 @@ class PostUpdateView(UpdateView):
     # получение данных по выбранному объявлению
     def get_object(self, **kwargs):
         id = self.kwargs.get('pk')
-        return Post.objects.get(pk=id)
+        post = Post.objects.get(pk=id)
+        return post
 
 
 # получение подробной информации об объявлении
@@ -50,28 +52,29 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'ads/post_detail.html'
     form_class = PostForm
-    # queryset = Post.objects.all()
 
-    # переопределение метода получения объекта
-    def get_object(self, *args, **kwargs):
-        # забирает значение по ключу, если его нет, то забирает None.
-        obj = cache.get(f'post-{self.kwargs["pk"]}', None)
-        # если объекта нет в кэше, то получаем его и записываем в кэш
-        if not obj:
-            obj = super().get_object(*args, **kwargs)
-            cache.set(f'post-{self.kwargs["pk"]}', obj)
+    # получение данных по выбранному объявлению
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        obj = Post.objects.get(pk=id)
         return obj
 
-    # для доступа к редактированию только собственных постов
     def get_context_data(self, **kwargs):
+        # в своих объявлениях пользователь может редактировать их
+        # в чужих может оставить отклик
         context = super().get_context_data(**kwargs)
-        obj = cache.get(f'post-{self.kwargs["pk"]}', None)
+        id = self.kwargs.get('pk')
+        obj = Post.objects.get(pk=id)
         author = obj.author
         user = self.request.user
+        # для доступа к редактированию только собственных постов
         context['author_user'] = True if user == author else False
+        # для добавления формы отклика на страницу
         context['response_form'] = ResponseForm()
         return context
 
+    # для добавления формы отклика на страницу объявления
+    # пользователь может оставить отклик на странице post_detail
     def post(self, request, pk):
         post = self.get_object(Post, pk=pk)
         form = ResponseForm(request.POST)
@@ -84,8 +87,10 @@ class PostDetailView(DetailView):
             return redirect('post_detail', post.pk)
 
 
-class ResponsesView(ListView):
+# Отображение всех откликов
+class ResponsesView(FilterView):
     model = Response
+    filterset_class = ResponseFilter
     template_name = 'ads/responses.html'
     context_object_name = 'responses'
     ordering = ['-time_of_creation']
@@ -93,8 +98,24 @@ class ResponsesView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        # my_filter = Post.objects.filter(author=user)
-        # print(my_filter)
+        # для отображения в шаблоне только тех откликов, которые оставлены
+        # к объявлениям текущего пользователя
         context['user'] = user
-        context['filter'] = ResponseFilter(self.request.GET, queryset=self.get_queryset())
+        responses_to_current_users_posts = Response.objects.filter(post__author=user)
+        # для проверки наличия откликов к объявлениям текущего пользователя
+        context['responses_to_current_users_posts'] = responses_to_current_users_posts
         return context
+
+
+class ResponseDeleteView(DeleteView):
+    template_name = 'ads/response_delete.html'
+    queryset = Response.objects.all()
+    success_url = '/responses/'
+
+
+def accept_response(request, **kwargs):
+    pk = request.GET.get('pk', )
+    response = Response.objects.get(pk=pk)
+    response.status = True
+    response.save()
+    return redirect('/responses/')

@@ -1,16 +1,24 @@
 import django_filters
-# импорт всех моделей
+
 from .models import Response, Post
 
 
-# фильтр для модели затяжек (наследуемся от класса из приложения)
-class ResponseFilter(django_filters.FilterSet):
+def get_post_queryset(request):
+    """
+    Для фильтрации по объявлениям, которые созданы текущим пользователем.
+    :param request:
+    :return:
+    """
+    queryset = Post.objects.filter(author=request.user)
+    return queryset
 
-    # создание поля для фильтрации по вину
-    # выведутся все объекты, в которых есть символы, введенные в поле
+
+class ResponseFilter(django_filters.FilterSet):
+    # фильтр для страницы с откликами на объявления текущего пользователя
+
     post_title = django_filters.ModelChoiceFilter(
         field_name='post',
-        label='Заголовок объявления',
+        label='Choose ad for title',
         lookup_expr='exact',
-        queryset=Post.objects.filter(author=self.username)
+        queryset=get_post_queryset
     )

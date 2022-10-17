@@ -1,6 +1,8 @@
 <!-- Шаблон для создания объявления -->
 {% extends 'index.html' %}
 
+{% load crispy_forms_tags %}
+
 {% load i18n %}
 
 {% block title %}
@@ -16,7 +18,6 @@ Post add
         {% csrf_token %}
         {{ form.media }}
         {{ form.as_p }}
-        <br>
         <p align="center">
             <input type="submit" value="Add">
         </p>
