@@ -1,59 +1,54 @@
 {% extends 'index.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block title %}
 Responses
 {% endblock title %}
 
 
 {% block content %}
-Hello from responses!
 
+<form method="GET">
+    {% csrf_token %}
+    {{ filter.form|crispy }}
+    <br>
+    <button type="submit" class="btn btn-success">Search</button>
+</form>
+
+{% if responses %}
 <table align="center">
-    {% for response in responses %}
+    <thead>
+    <th>
+        <b> Author </b>
+    </th>
+    <th>
+        <b> Content </b>
+    </th>
+    <th>
+        <b> Time of creation </b>
+    </th>
+    </thead>
+    {% for response in filter.qs %}
     <tr>
         <td>
-            <h4 align="center">
-                {{ response.post.title }}
-            </h4>
+            {{ response.author }} &nbsp
         </td>
-    </tr>
-    <tr>
         <td>
-            {{ response.post.content|safe }}
+            &nbsp {{ response.text }} &nbsp
         </td>
-    </tr>
-    <tr>
         <td>
-            <h6 align="left">
-                Объявление опубликовал - "{{ response.post.author }}"
-            </h6>
+            &nbsp {{ response.time_of_creation }} &nbsp
         </td>
-    </tr>
-    <tr>
         <td>
-            <h6 align="left">
-                Автор отклика - {{ response.author }}
-            </h6>
-            <br>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <h6 align="left">
-                Содержание отклика - {{ response.text }}
-            </h6>
-            <br>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <h6 align="left">
-                Время отклика - {{ response.time_of_creation }}
-            </h6>
-            <br>
+            &nbsp {{ response.post.title }} &nbsp
         </td>
     </tr>
     {% endfor %}
 </table>
-
+<br>
+<!--если нет затяжек, то выводится сообщение ниже-->
+{% else %}
+<h2>Нет информации о затяжках</h2>
+{% endif %}
 {% endblock content %}

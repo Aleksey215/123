@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Post, Response
 from .forms import PostForm, ResponseForm
+from .filters import ResponseFilter
 
 
 # отображение домашней страницы
@@ -29,6 +30,7 @@ class PostsView(ListView):
     model = Post
     template_name = 'ads/posts.html'
     context_object_name = 'posts'
+    ordering = ['-id']
 
 
 # редактирование объявления
@@ -86,6 +88,13 @@ class ResponsesView(ListView):
     model = Response
     template_name = 'ads/responses.html'
     context_object_name = 'responses'
+    ordering = ['-time_of_creation']
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        pass
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        # my_filter = Post.objects.filter(author=user)
+        # print(my_filter)
+        context['user'] = user
+        context['filter'] = ResponseFilter(self.request.GET, queryset=self.get_queryset())
+        return context

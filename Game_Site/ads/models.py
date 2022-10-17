@@ -28,7 +28,7 @@ class Post(models.Model):
     content = RichTextUploadingField(blank=True, null=True)
 
     def __str__(self):
-        return f'{self.title}: {self.category}'
+        return f'{self.title}: {self.author}'
 
     def get_absolute_url(self):
         return f'/posts/'

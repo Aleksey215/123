@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     # приложения для расширения текстового поля
     'ckeditor',
     'ckeditor_uploader',
-
+    # формы
+    'crispy_forms',
     # приложения проекта
     'ads',
     'profile',
@@ -193,3 +194,6 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_PASSWORD")
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_EMAIL")
+
+# для кастомных форм ('crispy_forms',)
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
