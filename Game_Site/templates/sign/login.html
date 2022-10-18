@@ -2,7 +2,7 @@
 {% extends "index.html" %}
 
 {% block content %}
-<h2 align="center"> Войти в систему </h2>
+<h2 align="center"> Sign in </h2>
 <form method="post" action="{% url 'login' %}">
 {% csrf_token %}
 <table align="center">
@@ -19,5 +19,5 @@
 <input type="submit" value="Войти">
 </form>
 <br>
-<button> <a href="/sign/signup"> Регистрация </a></button>
+<button> <a href="/sign/signup"> Registration </a></button>
 {% endblock %}

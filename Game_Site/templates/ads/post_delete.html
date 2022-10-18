@@ -1,0 +1,95 @@
+{% extends 'index.html' %}
+
+{% block title %}
+Post Delete
+{% endblock %}
+
+{% block content %}
+
+<h1>Are you sure you want to delete the selected ad?</h1>
+
+<table align="left" cellpadding="20">
+    <tr>
+        <td>
+            <h3 align="left">Title: </h3>
+        </td>
+        <td width="100%">
+            <p align="left">
+                <font size="5"> {{ post.title }} </font>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h3 align="left">Author: </h3>
+        </td>
+        <td>
+            <p align="left">
+                <font size="5"> {{ post.author }} </font>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h3 align="left">Category: </h3>
+        </td>
+        <td>
+            <p align="left">
+                <font size="5"> {{ post.get_category_display }} </font>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h3 align="left">Content: </h3>
+        </td>
+        <td align="left">
+            <p align="left">
+                <font size="5"> {{ post.content|safe }} </font>
+            </p>
+        </td>
+    </tr>
+</table>
+
+<p align="left">
+    <font size="3">Responses of chosen ad:</font>
+</p>
+<hr>
+<table align="center" width="100%">
+    <thead>
+    <th>
+        <b> Author of response </b>
+    </th>
+    <th>
+        <b> Content of response </b>
+    </th>
+    <th>
+        <b> Time of creation of response  </b>
+    </th>
+    </thead>
+    {% for response in responses %}
+    <tr>
+        <td>
+            {{ response.author }}
+        </td>
+        <td>
+            {{ response.text }}
+        </td>
+        <td>
+            {{ response.time_of_creation }}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+<p>
+    <hr>
+    <font size="5" color="ff0000">If you delete the selected ad, then all responses to it will also be deleted.</font>
+</p>
+
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success">Delete</button>
+</form>
+
+{% endblock %}

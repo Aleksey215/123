@@ -14,9 +14,56 @@ Response delete
 <!--Описание содержания
 в таблице выводим всю ин-ию и прописали кнопку подтверждения-->
 {% block content %}
-Hello from deleteView
+ <style>
+   table {
+    width: 100%; /* Ширина таблицы */
+    background: white; /* Цвет фона таблицы */
+    border: 1px;
+   }
+   td, th {
+    padding: 5px; /* Поля вокруг текста */
+    border: 1px;
+   }
+  </style>
+
+<h3>Are you sure you want to delete the selected response?</h3>
+
+<table align="center">
+    <thead>
+    <th>
+        <b>
+            Titles of your ads
+        </b>
+    </th>
+    <th>
+        <b> Author of response </b>
+    </th>
+    <th>
+        <b> Content of response </b>
+    </th>
+    <th>
+        <b> Time of creation of response  </b>
+    </th>
+    </thead>
+    <tr>
+        <td>
+            <a href="{% url 'post_detail' response.post.id %}">{{ response.post.title }}</a>
+        </td>
+        <td>
+            {{ response.author }}
+        </td>
+        <td>
+            {{ response.text }}
+        </td>
+        <td>
+            {{ response.time_of_creation }}
+        </td>
+    </tr>
+</table>
+
 <form method="POST">
     {% csrf_token %}
-    <input type="submit" value="Подтвердить">
+    <br>
+    <button type="submit" class="btn btn-success">Delete</button>
 </form>
 {% endblock content %}

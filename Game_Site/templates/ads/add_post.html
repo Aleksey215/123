@@ -17,10 +17,8 @@ Post add
     <form method="POST">
         {% csrf_token %}
         {{ form.media }}
-        {{ form.as_p }}
-        <p align="center">
-            <input type="submit" value="Add">
-        </p>
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-success">Add</button>
     </form>
 </div>
 

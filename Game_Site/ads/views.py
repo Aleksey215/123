@@ -5,7 +5,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DetailView, D
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_filters.views import FilterView
 
-from .models import Post, Response
+from .models import Post, Response, User
 from .forms import PostForm, ResponseForm
 from .filters import ResponseFilter
 
@@ -67,6 +67,8 @@ class PostDetailView(DetailView):
         obj = Post.objects.get(pk=id)
         author = obj.author
         user = self.request.user
+        # для отображения формы только зарегистрированным пользователям
+        context['anonymous'] = user in User.objects.all()
         # для доступа к редактированию только собственных постов
         context['author_user'] = True if user == author else False
         # для добавления формы отклика на страницу
@@ -76,7 +78,7 @@ class PostDetailView(DetailView):
     # для добавления формы отклика на страницу объявления
     # пользователь может оставить отклик на странице post_detail
     def post(self, request, pk):
-        post = self.get_object(Post, pk=pk)
+        post = self.get_object(pk=pk)
         form = ResponseForm(request.POST)
 
         if form.is_valid():
@@ -85,6 +87,20 @@ class PostDetailView(DetailView):
             obj.author = self.request.user
             obj.save()
             return redirect('post_detail', post.pk)
+
+
+class PostDeleteView(DeleteView):
+    template_name = 'ads/post_delete.html'
+    queryset = Post.objects.all()
+    success_url = '/posts/'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        id = self.kwargs.get('pk')
+        obj = Post.objects.get(pk=id)
+        responses = Response.objects.filter(post__id=obj.id)
+        context['responses'] = responses
+        return context
 
 
 # Отображение всех откликов
