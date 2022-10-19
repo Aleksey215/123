@@ -55,8 +55,9 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     # формы
     'crispy_forms',
-    # приложения проекта
-    'ads',
+    # приложение с объявлениями (указан конфиг)
+    'ads.apps.AdsConfig',
+    # профиль пользователя
     'profile',
 ]
 
@@ -182,7 +183,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_FORMS = {'signup': 'sign.models.BasicSignupForm'}
+ACCOUNT_FORMS = {'signup': 'allauth.account.forms.SignupForm'}
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_HMAC = True
 
