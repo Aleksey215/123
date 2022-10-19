@@ -58,7 +58,6 @@ INSTALLED_APPS = [
     # приложения проекта
     'ads',
     'profile',
-    'sign',
 ]
 
 AUTHENTICATION_BACKENDS = [

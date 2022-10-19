@@ -1,24 +1,24 @@
-<!--Данный шаблон расширяет базовый шаблон(profile.html) и добавляет заголовок второго уровня
- с названием страницы и переменной, полученной из контекста.
- Заметим, что это как раз та самая страница, которая будет показываться только авторизованному пользователю!-->
-
-<!--Наследование от главного шаблона-->
 {% extends "index.html" %}
 
 {% load i18n %}
 
 <!--Описание содержания шаблона-->
 {% block content %}
+<style>
+   a {
+    text-decoration: none; /* Отменяем подчеркивание у ссылки */
+   }
+</style>
 <h2>Пользователь "{{request.user.username}}" - приветствую на вашей личной странице!</h2>
 <div>
-    Чтобы посмотреть отклики на ваши объявления, нажмите на кнопку
-    <button>
-        <a href="/responses/" style="color:#FF0000">Отклики</a>
-    </button>
+    <form action="/responses/">
+        Чтобы посмотреть отклики на ваши объявления, нажмите на кнопку
+        <button> Responses </button>
+    </form>
 </div>
-
-
-<button> <a href="/sign/logout/">Выйти</a> </button>
-<br>
+<hr>
+<form action="/accounts/logout/">
+    <button class="btn btn-success"> LogOut </button>
+</form>
 
 {% endblock %}
