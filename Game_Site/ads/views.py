@@ -2,10 +2,47 @@ from django.shortcuts import render, redirect
 from django.views.generic import ListView, CreateView, UpdateView, DetailView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_filters.views import FilterView
+# для перевода html в текст для отправки в таску
+from django.template.loader import render_to_string
 
 from .models import Post, Response, User
 from .forms import PostForm, ResponseForm
 from .filters import ResponseFilter
+from .tasks import email_for_post_author_task, email_for_response_author_task
+
+
+def send_mail_to_post_author(instance):
+    post_author = instance.post.author
+    post_title = instance.post.title
+    post_author_email = instance.post.author.email
+    response_author = instance.author
+    response_content = instance.text
+    html_content = render_to_string(
+        'ads/post_mail.html',
+        {'user': post_author,
+         'post_title': post_title,
+         'response_author': response_author,
+         'response_content': response_content,
+         'response': instance}
+    )
+    email_for_post_author_task.delay(post_author, post_author_email, html_content)
+
+
+def send_mail_to_response_author(instance):
+    post_author = instance.post.author
+    post_title = instance.post.title
+    response_author = instance.author
+    response_content = instance.text
+    response_author_email = instance.author.email
+    html_content = render_to_string(
+        'ads/response_mail.html',
+        {'user': response_author,
+         'post_title': post_title,
+         'post_author': post_author,
+         'response_content': response_content,
+         'response': instance}
+    )
+    email_for_response_author_task.delay(response_author, response_author_email, html_content)
 
 
 # отображение домашней страницы
