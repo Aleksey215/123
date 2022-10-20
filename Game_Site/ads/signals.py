@@ -12,6 +12,7 @@ from config.settings import DEFAULT_FROM_EMAIL
 
 @receiver(signal=post_save, sender=Response)
 def notify_author_of_the_response(sender, instance, created, **kwargs):
+    # когда кто-то откликнется на объявление, его автору придет уведомление на почту
     post_author = instance.post.author
     post_title = instance.post.title
     post_author_email = instance.post.author.email
