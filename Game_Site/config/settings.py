@@ -197,3 +197,9 @@ DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_EMAIL")
 
 # для кастомных форм ('crispy_forms',)
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
