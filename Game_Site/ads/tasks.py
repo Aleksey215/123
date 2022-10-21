@@ -1,6 +1,5 @@
 from celery import shared_task
 from django.core.mail import EmailMultiAlternatives
-import time
 
 from config.settings import DEFAULT_FROM_EMAIL
 
