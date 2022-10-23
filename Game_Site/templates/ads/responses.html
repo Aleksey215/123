@@ -8,6 +8,12 @@ Responses
 
 
 {% block content %}
+<style>
+   a {
+    text-decoration: none; /* Отменяем подчеркивание у ссылки */
+   }
+</style>
+
 <h1> Responses to your ads </h1>
  <style>
    table {
@@ -30,6 +36,9 @@ Responses
 <br>
 
 {% if responses_to_current_users_posts %}
+{% if not_confirmed_responses %}
+<hr>
+<h3 align="center">New responses for you</h3>
 <table align="center">
     <thead>
     <th>
@@ -46,9 +55,12 @@ Responses
     <th>
         <b> Time of creation of response  </b>
     </th>
+    <th>
+        <b> Status  </b>
+    </th>
     </thead>
     {% for response in filter.qs %}
-    {% if response.post.author == user %}
+    {% if response.post.author == user and not response.confirmed %}
     <tr>
         <td>
             <a href="{% url 'post_detail' response.post.id %}">{{ response.post.title }}</a>
@@ -63,17 +75,22 @@ Responses
             {{ response.time_of_creation }}
         </td>
         <td>
+            <font color="ff0000"> Not confirmed </font>
+        </td>
+        <td>
             <p align="right">
-                <button>
-                    <a href="{% url 'response_delete' response.id %}" style="color:#FF0000">Delete</a>
+                <button type="button" class="btn btn-danger">
+                    <a href="{% url 'response_delete' response.id %}"style="color:#ffffff">Delete</a>
                 </button>
                 <br>
             </p>
         </td>
         <td>
             <p align="right">
-                <button>
-                    <a href="accept_response/?pk={{ response.id }}">Accept</a>
+                <button type="button" class="btn btn-success">
+                    <a href="accept_response/?pk={{ response.id }}">
+                        <font color="white">Confirm</font>
+                    </a>
                 </button>
             </p>
         </td>
@@ -81,6 +98,63 @@ Responses
     {% endif %}
     {% endfor %}
 </table>
+{% endif %}
+
+{% if confirmed_responses %}
+<hr>
+<h3 align="center">Responses you confirmed</h3>
+<table align="center">
+    <thead>
+    <th>
+        <b>
+            Titles of your ads
+        </b>
+    </th>
+    <th>
+        <b> Author of response </b>
+    </th>
+    <th>
+        <b> Content of response </b>
+    </th>
+    <th>
+        <b> Time of creation of response  </b>
+    </th>
+    <td>
+        <b> Status </b>
+    </td>
+    </thead>
+    {% for response in filter.qs %}
+    {% if response.post.author == user and response.confirmed %}
+    <tr>
+        <td>
+            <a href="{% url 'post_detail' response.post.id %}">{{ response.post.title }}</a>
+        </td>
+        <td>
+            {{ response.author }}
+        </td>
+        <td>
+            {{ response.text }}
+        </td>
+        <td>
+            {{ response.time_of_creation }}
+        </td>
+        <td>
+            <font color="00d000"> Confirmed </font>
+        </td>
+        <td>
+            <p align="right">
+                <button type="button" class="btn btn-danger">
+                    <a href="{% url 'response_delete' response.id %}"style="color:#ffffff">Delete</a>
+                </button>
+                <br>
+            </p>
+        </td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+{% endif %}
+
 {% else %}
 <h2>На данный момент нет откликов на ваши объявления</h2>
 {% endif %}

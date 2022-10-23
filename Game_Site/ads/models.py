@@ -28,7 +28,7 @@ class Post(models.Model):
     content = RichTextUploadingField(blank=True, null=True)
 
     def __str__(self):
-        return f'{self.title}: {self.author}'
+        return f'Title:{self.title}'
 
     def get_absolute_url(self):
         return f'/posts/'
@@ -46,7 +46,10 @@ class Response(models.Model):
         blank=True,
         related_name='response'
     )
-    status = models.BooleanField(default=False)
+    confirmed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'Response to:{self.post.title}'
 
     def get_absolute_url(self):
         return f'/posts/'

@@ -34,4 +34,4 @@ class ResponseAdminForm(forms.ModelForm):
 @admin.register(Response)
 class ResponseAdmin(admin.ModelAdmin):
     form = ResponseAdminForm
-    list_display = ['id', 'author', 'text', 'time_of_creation', 'post', 'status']
+    list_display = ['id', 'author', 'text', 'time_of_creation', 'post', 'confirmed']
