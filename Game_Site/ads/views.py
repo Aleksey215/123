@@ -63,6 +63,7 @@ class PostsView(ListView):
     template_name = 'ads/posts.html'
     context_object_name = 'posts'
     ordering = ['-id']
+    paginate_by = 5
 
 
 # редактирование объявления
