@@ -9,16 +9,16 @@ from ckeditor_uploader.fields import RichTextUploadingField
 class Post(models.Model):
     # категории публикаций
     TYPE = (
-        ('tank', 'Танки'),
-        ('heal', 'Хилы'),
-        ('dd', 'ДД'),
-        ('buyers', 'Торговцы'),
-        ('gildmaster', 'Гилдмастеры'),
-        ('quest', 'Квестгиверы'),
-        ('smith', 'Кузнецы'),
-        ('tanner', 'Кожевники'),
-        ('potion', 'Зельевары'),
-        ('spellmaster', 'Мастера заклинаний'),
+        ('tank', 'Tanks'),
+        ('heal', 'Heals'),
+        ('dd', 'DD'),
+        ('buyers', 'Merchants'),
+        ('gildmaster', 'Gildmasters'),
+        ('quest', 'Quest'),
+        ('smith', 'Blacksmiths'),
+        ('tanner', 'Tanners'),
+        ('potion', 'Potions'),
+        ('spellmaster', 'Spell masters'),
     )
     # данное поле заполнится автоматически, именем зарегистрированного пользователя, который создает пост
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True)

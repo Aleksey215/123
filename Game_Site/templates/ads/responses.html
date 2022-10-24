@@ -31,7 +31,7 @@ Responses
     {% csrf_token %}
     {{ filter.form|crispy }}
     <br>
-    <button type="submit" class="btn btn-success">Search</button>
+    <button type="button" class="btn btn-primary">Search</button>
 </form>
 <br>
 
@@ -72,7 +72,7 @@ Responses
             {{ response.text }}
         </td>
         <td>
-            {{ response.time_of_creation }}
+            {{ response.time_of_creation|date:'(d.m.Y) - H:i' }}
         </td>
         <td>
             <font color="ff0000"> Not confirmed </font>
@@ -136,7 +136,7 @@ Responses
             {{ response.text }}
         </td>
         <td>
-            {{ response.time_of_creation }}
+            {{ response.time_of_creation|date:'(d.m.Y) - H:i' }}
         </td>
         <td>
             <font color="00d000"> Confirmed </font>

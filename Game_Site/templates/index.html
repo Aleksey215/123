@@ -34,33 +34,29 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/add_post/">Add_post</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/profile/">Account</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="http://127.0.0.1:8000/admin">AdminPanel</a>
-                </li>
             </ul>
         </div>
         <div class="col-4 d-flex justify-content-end align-items-center">
-            {% if request.user.username %}
+
             <ul class="nav navbar-nav navbar-right">
+                {% if request.user.username %}
                 <li class="nav-item">
                     <a class="nav-link" href="/profile/">
-                    <font color="white">{{ request.user.username }}</font>
+                    <font color="ffcf00">User: {{ request.user.username }}</font>
                     </a>
                 </li>
-            </ul>
-            {% else %}
-            <ul class="nav navbar-nav navbar-right">
+                {% else %}
                 <li class="nav-item">
                     <a class="btn btn-outline-light me-2" href="/accounts/login/"> SignIn </a>
                 </li>
                 <li class="nav-item">
                     <a class="btn btn-warning" href="/accounts/signup/"> SignUp </a>
                 </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="http://127.0.0.1:8000/admin">AdminPanel</a>
+                </li>
             </ul>
-            {% endif %}
         </div>
     </div>
 </nav>

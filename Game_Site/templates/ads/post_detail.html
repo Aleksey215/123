@@ -18,21 +18,24 @@ Post Detail
     padding: 5px; /* Поля вокруг текста */
     border: 1px;
    }
+   a {
+    text-decoration: none; /* Отменяем подчеркивание у ссылки */
+   }
   </style>
-<table align="left">
+<table align="left" cellpadding="20">
     <tr>
         <td>
-            <h4 align="left">Заголовок</h4>
+            <h3 align="left">Title: </h3>
         </td>
-        <td>
+        <td width="100%">
             <p align="left">
-                <font size="5" color="aaaaaa"> {{ post.title }} </font>
+                <font size="5"> {{ post.title }} </font>
             </p>
         </td>
     </tr>
     <tr>
         <td>
-            <h4 align="left">Автор</h4>
+            <h3 align="left">Author: </h3>
         </td>
         <td>
             <p align="left">
@@ -42,7 +45,7 @@ Post Detail
     </tr>
     <tr>
         <td>
-            <h4 align="left">Категория</h4>
+            <h3 align="left">Category: </h3>
         </td>
         <td>
             <p align="left">
@@ -52,7 +55,7 @@ Post Detail
     </tr>
     <tr>
         <td>
-            <h4 align="left">Содержание &nbsp</h4>
+            <h3 align="left">Content: &nbsp</h3>
         </td>
         <td align="left">
             <p align="left">
@@ -63,18 +66,17 @@ Post Detail
 </table>
 {% if author_user %}
 <p style="text-align: left">
-    <button>
-        <a href="{% url 'post_update' post.id %}">Edit</a>
+    <button type="button" class="btn btn-secondary">
+        <a href="{% url 'post_update' post.id %}" style="color:white">Edit</a>
     </button>
-    <button>
-        <a href="{% url 'post_delete' post.id %}">Delete</a>
+    <button type="button" class="btn btn-danger">
+        <a href="{% url 'post_delete' post.id %}" style="color:white">Delete</a>
     </button>
 </p>
 {% elif anonymous %}
 <p style="text-align: left">
-    Если данное объявление вас заинтересовало,
-    вы можете отправить отклик на него.<br>
-    Просто введите сообщение и автор объявления получит его.
+    If this announcement interests you, you can send a response to it.
+    Just enter a message and the advertiser will receive it.
 </p>
 <p style="text-align: left">
 <form action="" method="post">
@@ -85,8 +87,8 @@ Post Detail
 </form>
 </p>
 {% else %}
-Вы сможете откликнуться на это и другие объявления после регистрации
-<a href="/accounts/signup">SignUp</a> или входа <a href="/accounts/login/">SignIn</a>
+You will be able to respond to this and other ads after registration
+<a href="/accounts/signup">SignUp</a> or signin <a href="/accounts/login/">SignIn</a>
 {% endif %}
 
 {% endblock %}

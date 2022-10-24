@@ -59,7 +59,7 @@ Response delete
             {{ response.text }}
         </td>
         <td>
-            {{ response.time_of_creation }}
+            {{ response.time_of_creation|date:'(d.m.Y) - H:i' }}
         </td>
         <td>
             {% if response.confirmed %}
