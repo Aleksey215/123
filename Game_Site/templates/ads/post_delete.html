@@ -51,6 +51,7 @@ Post Delete
     </tr>
 </table>
 
+{% if responses %}
 <p align="left">
     <font size="3">Responses of chosen ad:</font>
 </p>
@@ -64,7 +65,7 @@ Post Delete
         <b> Content of response </b>
     </th>
     <th>
-        <b> Time of creation of response  </b>
+        <b> Time of creation of response </b>
     </th>
     </thead>
     {% for response in responses %}
@@ -76,20 +77,20 @@ Post Delete
             {{ response.text }}
         </td>
         <td>
-            {{ response.time_of_creation }}
+            {{ response.time_of_creation|date:'(d.m.Y) - H:i' }}
         </td>
     </tr>
     {% endfor %}
 </table>
 <p>
-    <hr>
-    <font size="5" color="ff0000">If you delete the selected ad, then all responses to it will also be deleted.</font>
+<hr>
+<font size="5" color="ff0000">If you delete the selected ad, then all responses to it will also be deleted.</font>
 </p>
-
+{% endif %}
 
 <form method="POST">
     {% csrf_token %}
-    <input type="submit" value="Delete">
+    <button type="submit" class="btn btn-danger">Delete</button>
 </form>
 
 {% endblock %}
