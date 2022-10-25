@@ -31,7 +31,7 @@ Responses
     {% csrf_token %}
     {{ filter.form|crispy }}
     <br>
-    <button type="button" class="btn btn-primary">Search</button>
+    <button type="submit" class="btn btn-primary">Search</button>
 </form>
 <br>
 
@@ -80,7 +80,7 @@ Responses
         <td>
             <p align="right">
                 <button type="button" class="btn btn-danger">
-                    <a href="{% url 'response_delete' response.id %}"style="color:#ffffff">Delete</a>
+                    <a href="{% url 'response_delete' response.id %}" style="color:#ffffff">Delete</a>
                 </button>
                 <br>
             </p>
@@ -139,7 +139,7 @@ Responses
             {{ response.time_of_creation|date:'(d.m.Y) - H:i' }}
         </td>
         <td>
-            <font color="00d000"> Confirmed </font>
+            <font color="00d00"> Confirmed </font>
         </td>
         <td>
             <p align="right">

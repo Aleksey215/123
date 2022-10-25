@@ -8,13 +8,34 @@
    a {
     text-decoration: none; /* Отменяем подчеркивание у ссылки */
    }
+
+
+
+
+
 </style>
 <h2>User "{{request.user.username}}" - welcome to your personal page!</h2>
-<div>
-    <form action="/responses/">
-        To see responses to your ads, click on the button
+<br>
+<form action="/responses/">
+    <p align="left">
+        To see responses to your ads, click on the button:
         <button class="btn btn-info"> Responses </button>
-    </form>
-</div>
+    </p>
+</form>
+<br>
+<form action="/profile/user_posts/">
+    <p align="left">
+        If you want to see your ads, click on the button:
+        <button class="btn btn-info"> My ads </button>
+    </p>
+</form>
+<br>
+<form action="/add_post/">
+    <p align="left">
+        If you want to create ad, click on the button:
+        <button class="btn btn-success"> Create ad </button>
+    </p>
+</form>
+
 
 {% endblock %}

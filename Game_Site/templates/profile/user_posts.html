@@ -1,0 +1,68 @@
+<!-- страница на которой отображены все объявления -->
+{% extends 'index.html' %}
+
+{% block title %}
+Posts
+{% endblock %}
+
+{% block content %}
+<style>
+   a {
+    text-decoration: none; /* Отменяем подчеркивание у ссылки */
+   }
+   td, tr {
+    padding-bottom: 10px; /* нижний отступ */
+    padding-top: 10px; /* нижний отступ */
+   }
+</style>
+<table width="100%">
+    <thead>
+    <th>
+        <h4 align="left">Category</h4>
+    </th>
+    <th>
+        <h4 align="left">Title</h4>
+    </th>
+    <th>
+        <h4 align="left">Content</h4>
+    </th>
+    </thead>
+    {% for post in posts %}
+    {% if post.author == request.user %}
+    <tr>
+        <td align="left">
+            {{ post.category }}
+        </td>
+        <td align="left">
+            {{ post.title }}
+        </td>
+        <td align="left">
+            {{ post.content|safe }}
+        </td>
+        <td>
+            <p style="text-align: right">
+                <button type="button" class="btn btn-secondary">
+                    <a href="/add_post/{{post.id}}" style="color:white">Edit</a>
+                </button>
+            </p>
+        </td>
+        <td>
+        <p style="text-align: center">
+            <button type="button" class="btn btn-success">
+                <a href="/profile/responses_for_post/{{post.id}}" style="color:white">Responses</a>
+            </button>
+        </p>
+        </td>
+        <td>
+        <p style="text-align: left">
+            <button type="button" class="btn btn-danger">
+                <a href="/post_delete/{{post.id}}" style="color:white">Delete</a>
+            </button>
+        </p>
+        </td>
+    </tr>
+    {% endif %}
+    {% endfor %}
+</table>
+
+{% endblock %}

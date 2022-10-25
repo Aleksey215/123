@@ -44,6 +44,8 @@ Posts
     {% endfor %}
 </table>
 
+{{ user_posts }}
+
 {% if is_paginated %}
 <!-- Если доступна предыдущая страница, то даём ссылку на неё и самую первую страницу -->
 {% if page_obj.has_previous %}

@@ -1,0 +1,132 @@
+<!-- страница получения подробной информации об объявлении -->
+{% extends 'index.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+Post Detail
+{% endblock %}
+
+{% block content %}
+<style>
+   table {
+    width: 100%; /* Ширина таблицы */
+    background: white; /* Цвет фона таблицы */
+    border: 1px;
+   }
+   td, th {
+    padding: 5px; /* Поля вокруг текста */
+    border: 1px;
+    vertical-align: 10px;
+   }
+   a {
+    text-decoration: none; /* Отменяем подчеркивание у ссылки */
+   }
+
+
+
+</style>
+<table align="left" cellpadding="20">
+    <tr>
+        <td>
+            <h3 align="left">Title: </h3>
+        </td>
+        <td width="100%">
+            <p align="left">
+                <font size="5"> {{ post.title }} </font>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h3 align="left">Category: </h3>
+        </td>
+        <td>
+            <p align="left">
+                <font size="5"> {{ post.get_category_display }} </font>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <h3 align="left">Content: &nbsp</h3>
+        </td>
+        <td align="left">
+            <p align="left">
+                <font size="5"> {{ post.content|safe }} </font>
+            </p>
+        </td>
+    </tr>
+</table>
+
+{% if responses %}
+<p align="left">
+    <font size="3">Responses of chosen ad:</font>
+</p>
+<hr>
+<table align="center" width="100%">
+    <thead>
+    <th>
+        <b> Author of response </b>
+    </th>
+    <th>
+        <b> Content of response </b>
+    </th>
+    <th>
+        <b> Time of creation of response </b>
+    </th>
+    <th>
+        <b> Status </b>
+    </th>
+    </thead>
+    {% for response in responses %}
+    <tr>
+        <td>
+            {{ response.author }}
+        </td>
+        <td>
+            {{ response.text }}
+        </td>
+        <td>
+            {{ response.time_of_creation|date:'(d.m.Y) - H:i' }}
+        </td>
+        <td>
+            {% if response.confirmed %}
+            <font color="00dd00">Confirmed</font>
+            {% else %}
+            <font color="000000">Not confirmed</font>
+            {% endif %}
+        </td>
+        {% if response.confirmed %}
+        <td>
+            <p align="right">
+                <button type="button" class="btn btn-danger">
+                    <a href="{% url 'response_delete' response.id %}" style="color:#ffffff">Delete</a>
+                </button>
+                <br>
+            </p>
+        </td>
+        {% else %}
+        <td>
+            <p align="right">
+                <button type="button" class="btn btn-success">
+                    <a href="{{ post.id }}/confirm_response/?pk={{ response.id }}">
+                        <font color="white">Confirm</font>
+                    </a>
+                </button>
+            </p>
+        </td>
+        <td>
+            <p align="right">
+                <button type="button" class="btn btn-danger">
+                    <a href="{% url 'response_delete' response.id %}" style="color:#ffffff">Delete</a>
+                </button>
+                <br>
+            </p>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock %}

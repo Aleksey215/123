@@ -20,10 +20,4 @@
 
 Также мы бы хотели иметь возможность отправлять пользователям новостные рассылки.
 
--------------------
-kaloha215@gmail.com
-123qweasdzxc!
 
-API google
-id: 498007205888-8m070our4jdk5d6htr154oa025u2bt5l.apps.googleusercontent.com
-key: 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
