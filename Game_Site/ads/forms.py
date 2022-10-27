@@ -2,8 +2,10 @@ from django import forms
 from .models import *
 
 
-# создание формы для добавления публикации
 class PostForm(forms.ModelForm):
+    """
+    Создание формы для добавления публикации
+    """
 
     class Meta:
         model = Post
@@ -19,6 +21,9 @@ class PostForm(forms.ModelForm):
 
 
 class ResponseForm(forms.ModelForm):
+    """
+    Создание формы для отклика
+    """
 
     class Meta:
         model = Response
@@ -28,7 +33,9 @@ class ResponseForm(forms.ModelForm):
         }
 
         widgets = {
+            # поле "автор" заполнится автоматически
             'author': forms.HiddenInput(),
             'text': forms.TextInput(attrs={'class': 'form-control'}),
+            # поле "объявление" заполнится автоматически
             'post': forms.HiddenInput(),
         }

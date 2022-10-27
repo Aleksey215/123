@@ -14,8 +14,9 @@ def get_post_queryset(request):
 
 
 class ResponseFilter(django_filters.FilterSet):
-    # фильтр для страницы с откликами на объявления текущего пользователя
-
+    """
+    Фильтр для страницы с откликами на объявления текущего пользователя
+    """
     post_title = django_filters.ModelChoiceFilter(
         field_name='post',
         label='Choose ad for title',

@@ -5,8 +5,10 @@ from django.contrib.auth.models import User
 from ckeditor_uploader.fields import RichTextUploadingField
 
 
-# модель самого объявления, которое создает пользователь
 class Post(models.Model):
+    """
+    Объявление, которое создает пользователь
+    """
     # категории публикаций
     TYPE = (
         ('tank', 'Tanks'),
@@ -34,11 +36,15 @@ class Post(models.Model):
         return f'/posts/'
 
 
-# модель отклика на объявление
 class Response(models.Model):
+    """
+    Отклик на объявление
+    """
+    # автор отклика заполнится автоматически именем того, кто создает отклик
     author = models.ForeignKey(User, on_delete=models.CASCADE, default=None, blank=True)
     text = models.TextField()
     time_of_creation = models.DateTimeField(auto_now_add=True)
+    # так же заполняется автоматически
     post = models.ForeignKey(
         Post,
         on_delete=models.CASCADE,
