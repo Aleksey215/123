@@ -171,7 +171,7 @@ CKEDITOR_CONFIGS = {
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# путь для входа
+# Путь для входа
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'  # страница для перенаправления после успешного входа
 
@@ -195,9 +195,10 @@ EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_EMAIL")
 
-# для кастомных форм ('crispy_forms',)
+# Для кастомных форм ('crispy_forms',)
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# Подключение и настройка Celery
 CELERY_BROKER_URL = 'redis://localhost:6379'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379'
 CELERY_ACCEPT_CONTENT = ['application/json']
