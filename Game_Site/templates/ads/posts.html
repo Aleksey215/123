@@ -33,18 +33,8 @@ Posts
             </h6>
         </td>
     </tr>
-    <tr>
-        <td>
-            <h6 align="left">
-                Published - {{ post.author }}
-            </h6>
-            <br>
-        </td>
-    </tr>
     {% endfor %}
 </table>
-
-{{ user_posts }}
 
 {% if is_paginated %}
 <!-- Если доступна предыдущая страница, то даём ссылку на неё и самую первую страницу -->

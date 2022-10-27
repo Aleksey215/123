@@ -2,7 +2,7 @@
 {% extends 'index.html' %}
 
 {% block title %}
-Posts
+Ads
 {% endblock %}
 
 {% block content %}
@@ -10,11 +10,17 @@ Posts
    a {
     text-decoration: none; /* Отменяем подчеркивание у ссылки */
    }
-   td, tr {
-    padding-bottom: 10px; /* нижний отступ */
-    padding-top: 10px; /* нижний отступ */
+   td, th {
+    padding: 5px; /* Поля вокруг текста */
+    border: 1px;
+    vertical-align: top;
    }
 </style>
+
+<h2 align="center">
+    All your ads are displayed here
+</h2>
+<br>
 <table width="100%">
     <thead>
     <th>

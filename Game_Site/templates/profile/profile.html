@@ -1,19 +1,17 @@
 {% extends "index.html" %}
 
 {% load i18n %}
+{% block title %}
+My profile
+{% endblock %}
 
-<!--Описание содержания шаблона-->
 {% block content %}
 <style>
    a {
     text-decoration: none; /* Отменяем подчеркивание у ссылки */
    }
-
-
-
-
-
 </style>
+
 <h2>User "{{request.user.username}}" - welcome to your personal page!</h2>
 <br>
 <form action="/responses/">
@@ -36,6 +34,5 @@
         <button class="btn btn-success"> Create ad </button>
     </p>
 </form>
-
 
 {% endblock %}

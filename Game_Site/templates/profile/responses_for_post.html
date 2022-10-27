@@ -4,7 +4,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-Post Detail
+Ad responses
 {% endblock %}
 
 {% block content %}
@@ -22,10 +22,8 @@ Post Detail
    a {
     text-decoration: none; /* Отменяем подчеркивание у ссылки */
    }
-
-
-
 </style>
+
 <table align="left" cellpadding="20">
     <tr>
         <td>
@@ -128,5 +126,10 @@ Post Detail
     </tr>
     {% endfor %}
 </table>
+{% else %}
+<h4 align="center">
+    You have no responses for this ad.
+</h4>
 {% endif %}
+
 {% endblock %}

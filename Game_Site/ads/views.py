@@ -149,18 +149,6 @@ class ResponsesView(FilterView):
         # для отображения в шаблоне только тех откликов, которые оставлены
         # к объявлениям текущего пользователя
         context['user'] = user
-        # для проверки наличия откликов к объявлениям текущего пользователя
-        responses_to_current_users_posts = Response.objects.filter(post__author=user)
-        context['responses_to_current_users_posts'] = responses_to_current_users_posts
-        confirmed_responses = []
-        not_confirmed_responses = []
-        for response in responses_to_current_users_posts:
-            if response.confirmed:
-                confirmed_responses.append(response)
-            else:
-                not_confirmed_responses.append(response)
-        context['confirmed_responses'] = confirmed_responses
-        context['not_confirmed_responses'] = not_confirmed_responses
         return context
 
 

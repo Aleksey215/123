@@ -6,17 +6,12 @@
 Responses
 {% endblock title %}
 
-
 {% block content %}
 <style>
    a {
     text-decoration: none; /* Отменяем подчеркивание у ссылки */
    }
-</style>
-
-<h1> Responses to your ads </h1>
- <style>
-   table {
+      table {
     width: 100%; /* Ширина таблицы */
     background: white; /* Цвет фона таблицы */
     border: 1px;
@@ -25,8 +20,8 @@ Responses
     padding: 5px; /* Поля вокруг текста */
     border: 1px;
    }
-  </style>
-
+</style>
+<h1> Responses to your ads </h1>
 <form method="GET">
     {% csrf_token %}
     {{ filter.form|crispy }}
@@ -35,10 +30,9 @@ Responses
 </form>
 <br>
 
-{% if responses_to_current_users_posts %}
-{% if not_confirmed_responses %}
+{% if filter.qs %}
 <hr>
-<h3 align="center">New responses for you</h3>
+<h3 align="center">Responses for you</h3>
 <table align="center">
     <thead>
     <th>
@@ -97,32 +91,6 @@ Responses
     </tr>
     {% endif %}
     {% endfor %}
-</table>
-{% endif %}
-
-{% if confirmed_responses %}
-<hr>
-<h3 align="center">Responses you confirmed</h3>
-<table align="center">
-    <thead>
-    <th>
-        <b>
-            Titles of your ads
-        </b>
-    </th>
-    <th>
-        <b> Author of response </b>
-    </th>
-    <th>
-        <b> Content of response </b>
-    </th>
-    <th>
-        <b> Time of creation of response  </b>
-    </th>
-    <td>
-        <b> Status </b>
-    </td>
-    </thead>
     {% for response in filter.qs %}
     {% if response.post.author == user and response.confirmed %}
     <tr>
@@ -153,10 +121,10 @@ Responses
     {% endif %}
     {% endfor %}
 </table>
-{% endif %}
-
 {% else %}
-<h2>На данный момент нет откликов на ваши объявления</h2>
+<h4 align="center">
+    No responses
+</h4>
 {% endif %}
 
 {% endblock content %}
